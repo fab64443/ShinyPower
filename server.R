@@ -7,7 +7,7 @@ shinyServer(
 
   limitRange <- function(fun, min, max, mean=0, sd=1) {
     function(x) {
-      y = ifelse(round(x+0.15,1)>min & round(x-0.15,1)<max, fun(x, mean=mean, sd=sd), NA)
+      y = ifelse(round(x+0.1,1)>min & round(x-0.1,1)<max, fun(x, mean=mean, sd=sd), NA)
       return(y)
     }
   }
@@ -52,10 +52,24 @@ shinyServer(
     power = pnorm(zcrit2,mua,sd,lower.tail=FALSE)
     power = power + ifelse(htype,pnorm(zcrit1,mua,sd),0)
     
-    data.frame(
-      Name = c("zcrit1","zcrit2","alpha","beta","power"),
-      Value = as.character(round(c(zcrit1,zcrit2,alpha,1-power,power),3)), 
-      stringsAsFactors=FALSE)
+    df = data.frame(
+          Name = c("zcrit1","zcrit2","alpha","beta","power"),
+          Value = as.character(round(c(zcrit1,zcrit2,alpha,1-power,power),3)), 
+          stringsAsFactors=FALSE)
+    if (!htype) df[1,2] = "--"
+    df
+  })
+  
+  output$hypothesis <- renderUI({
+    htype <- input$htype == "B"
+    if (htype) {
+      withMathJax(
+        h6('$$H_o:\\mu_0=30 \\qquad H_a:\\mu_0<>30$$'))
+    }
+    else {
+      withMathJax(
+        h6('$$H_o:\\mu_0=30 \\qquad H_a:\\mu_0>30$$'))
+    }
   })
   
   output$formula <- renderUI({
@@ -77,7 +91,7 @@ shinyServer(
       tags$body(
         h2('Power of a Hypothesis Test'),
         h4('Definition'),
-        p('The probability of ',strong(em('not')),' committing a Type II error is called the ',strong('power'),' of a hypothesis test.'),
+        p('The ',strong('power'),' is the probability of correctly rejecting H0 when it is false.'),
         h4('Effect Size'),
         p('To compute the power of the test, one offers an alternative view about the "true" value of the population parameter, assuming that the null hypothesis is false. The ', strong('effect size'), ' is the difference between the true value and the value specified in the null hypothesis.'),
         p(align="center",'Effect size = True value - Hypothesized value'),
@@ -98,7 +112,11 @@ shinyServer(
     tags$html(
       tags$head(tags$title('Power of a Hypothesis Test')),
       tags$body(
-        h2('App Usage')
+        h2('App Usage'),
+        p('Use the control in the sidebar to change the four factors that affect the power of a hypothesis test. The plot is updated accordingly and the power and other parameters are recalculated.'),
+        p('The red nromal distribution represent the null hypothesis (mu = 30) and the blue normal distribution the real value of mu.'),
+        p('The vertical lines are the quantiles associated with the significance level.'),
+        p('The colored area under the curves are the type I error (in red) and the power (in blue)')
         
       )
     )
