@@ -113,6 +113,7 @@ shinyServer(
       tags$head(tags$title('Power of a Hypothesis Test')),
       tags$body(
         h2('App Usage'),
+        p('The distributions in the visualization show the theoretical sampling distribution for the null distribution (H0) and the sampling distribution under the alternative hypothesis (Ha).'),
         p('Use the control in the sidebar to change the four factors that affect the power of a hypothesis test. The plot is updated accordingly and the power and other parameters are recalculated.'),
         p('The red nromal distribution represent the null hypothesis (mu = 30) and the blue normal distribution the real value of mu.'),
         p('The vertical lines are the quantiles associated with the significance level.'),
