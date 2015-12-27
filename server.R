@@ -95,7 +95,7 @@ shinyServer(
         h4('Effect Size'),
         p('To compute the power of the test, one offers an alternative view about the "true" value of the population parameter, assuming that the null hypothesis is false. The ', strong('effect size'), ' is the difference between the true value and the value specified in the null hypothesis.'),
         p(align="center",'Effect size = True value - Hypothesized value'),
-        p('For example, suppose the null hypothesis states that a population mean is equal to 30. A researcher might ask: What is the probability of rejecting the null hypothesis if the true population mean is equal to 32 ? In this example, the effect size would be 32-30, which equals 2.'),
+        p('For example, suppose the null hypothesis states that a population mean is equal to 30. A researcher might ask: What is the probability of rejecting the null hypothesis if the true population mean is equal to 34 ? In this example, the effect size would be 34-30, which equals 4.'),
         h4('Factors that affect Power'),
         p('The power of a hypothesis test is affected by four factors.'),
         tags$ul( 
@@ -117,9 +117,13 @@ shinyServer(
         p('Use the control in the sidebar to change the four factors that affect the power of a hypothesis test. The plot is updated accordingly and the power and other parameters are recalculated.'),
         p('The red nromal distribution represent the null hypothesis (mu = 30) and the blue normal distribution the real value of mu.'),
         p('The vertical lines are the quantiles associated with the significance level.'),
-        p('The colored area under the curves are the type I error (in red) and the power (in blue)')
-        
-      )
+        p('The colored area under the curves are the type I error (in red) and the power (in blue)'),
+        h2('Credits'),
+        p('Understanding Statistical Power and Significance Testing (http://rpsychologist.com/d3/NHST/)'),
+        p('Stat Trek (http://stattrek.com/hypothesis-test/power-of-test.aspx?Tutorial=AP)'),
+        p('Wikipedia (https://en.wikipedia.org/wiki/Statistical_power)'),
+        p('Minitab Express Support (http://support.minitab.com/en-us/minitab-express/1/help-and-how-to/basic-statistics/inference/supporting-topics/basics/increase-the-power-of-a-hypothesis-test/)')
+        )
     )
     })
   
